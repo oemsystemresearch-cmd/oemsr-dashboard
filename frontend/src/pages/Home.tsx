@@ -94,8 +94,6 @@ export default function Home() {
     if (curve.length > 0) setSelectedIdx(curve.length - 1);
   }, [curve.length]);
 
-  const latestPrice = kpis?.latest_price.value ?? null;
-  const latestDate  = kpis?.latest_price.date  ?? null;
   const dailyAvg    = kpis?.daily_stats.avg    ?? null;
   const dailyDate   = kpis?.daily_stats.date   ?? null;
   const yearlyAvg   = kpis?.yearly_avg?.avg    ?? null;

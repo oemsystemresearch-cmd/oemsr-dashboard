@@ -327,7 +327,7 @@ export default function HistoricalData() {
                     <Tooltip
                       contentStyle={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, color: '#1f2937', fontSize: 12 }}
                       labelStyle={{ color: 'rgba(0,0,0,0.45)', fontSize: 11, marginBottom: 4 }}
-                      formatter={(v: number, name: string) => [`${v.toFixed(1)} MWh`, fmtParticipant(name)]}
+                      formatter={(v, name) => [`${(v as number).toFixed(1)} MWh`, fmtParticipant(String(name))]}
                     />
                     <Legend
                       formatter={name => <span style={{ color: 'rgba(0,0,0,0.6)', fontSize: 11 }}>{fmtParticipant(name)}</span>}
@@ -387,7 +387,7 @@ export default function HistoricalData() {
                   <Tooltip
                     contentStyle={{ background: '#143D4A', border: '1px solid #1E5565', borderRadius: 8, color: '#C1F6ED', fontSize: 12 }}
                     labelStyle={{ color: 'rgba(255,255,255,0.5)', fontSize: 11, marginBottom: 4 }}
-                    formatter={(v: number) => [`${v.toFixed(3)}${unit ? ' ' + unit : ''}`, codeInfo?.name ?? selectedCode]}
+                    formatter={(v) => [`${(v as number).toFixed(3)}${unit ? ' ' + unit : ''}`, codeInfo?.name ?? selectedCode]}
                   />
                   <Area type="monotone" dataKey="value" stroke="#2EAF7D" strokeWidth={2} fill="url(#grad)" dot={false} activeDot={{ r: 4, fill: '#3FD0C9', strokeWidth: 0 }} />
                 </AreaChart>

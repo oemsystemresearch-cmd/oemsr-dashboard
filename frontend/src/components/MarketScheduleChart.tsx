@@ -94,7 +94,6 @@ export default function MarketScheduleChart({ latestMschDate }: Props) {
     participants.map((p, i) => [p.id, COLORS[i % COLORS.length]])
   );
 
-  const totalMW = participants.reduce((s, p) => s + p.total_mw, 0);
   const avgMW   = breakdown?.data.length
     ? Math.round(
         breakdown.data.reduce((s, row) =>

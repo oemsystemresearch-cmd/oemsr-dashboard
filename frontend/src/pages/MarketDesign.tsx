@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { setLanguage } from '../i18n';
 import logo  from '../assets/logo.png';
-import info1 from '../assets/info_1.png';
 import info2 from '../assets/info_2.png';
 import info3 from '../assets/info_3.png';
 import info4 from '../assets/Info_4.png';
