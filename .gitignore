@@ -1,0 +1,20 @@
+# Database files (too large for git — upload to Railway volume directly)
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# Node / Frontend
+node_modules/
+dist/
+.DS_Store
+
+# Vite
+*.local

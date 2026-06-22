@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-ui: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    --color-navy:           #01122b;
+    --color-teal:           #2EAF7D;
+    --color-teal-bright:    #3FD0C9;
+    --color-green:          #449342;
+    --color-red:            #D15050;
+    --color-mint:           #C1F6ED;
+    --color-background:     #f9fafb;
+    --color-surface:        #f3f4f6;
+    --color-card:           #ffffff;
+    --color-border:         #e5e7eb;
+    --color-text-primary:   #111827;
+    --color-text-secondary: #6b7280;
+  }
+
+  html {
+    background-color: #ffffff;
+    color: #111827;
+  }
+
+  :root[dir='rtl'] body {
+    font-family: 'Noto Sans Arabic', system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+    background: #ffffff;
+    color: var(--color-text-primary);
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg;
+    background: rgba(255, 255, 255, 0.60);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 1px solid #e5e7eb;
+  }
+
+  .kpi-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-700;
+  }
+
+  /* Responsive background: landscape image for wide, portrait for narrow */
+  .home-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.55) 38%, rgba(255,255,255,0) 58%),
+      linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.22)),
+      var(--home-bg-url);
+    background-position: left top, left top, right top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 100%, auto 100vh;
+    background-attachment: fixed;
+  }
+
+  .btn-ghost {
+    @apply px-3 py-1.5 rounded text-sm font-medium text-gray-600 transition-colors;
+  }
+
+  .btn-accent {
+    @apply px-3 py-1.5 rounded text-sm font-semibold bg-accent transition-colors;
+    color: #02353C;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-bg {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.60) 55%, rgba(255,255,255,0) 85%),
+      linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.20)),
+      var(--home-bg-tall-url);
+    background-position: left top, left top, right top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% 100%, auto 100vh;
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .btn-ghost:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+  }
+  .btn-accent:hover {
+    background-color: #3FD0C9;
+  }
+}
+
+/* KPI / data typography */
+.kpi-value {
+  font-family: var(--font-ui);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.kpi-value-sm {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.data-table {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timestamp {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Leaflet dark overrides */
+.leaflet-container {
+  background: #0a2830 !important;
+  border-radius: 0.5rem;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #143D4A !important;
+  color: #C1F6ED !important;
+  border: 1px solid #1E5565 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-tip {
+  background: #143D4A !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+  font-family: var(--font-ui) !important;
+  font-size: 13px !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(11, 45, 53, 0.85) !important;
+  color: #78BEB5 !important;
+  font-size: 9px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #3FD0C9 !important;
+}
+
+.leaflet-control-zoom a {
+  background: #143D4A !important;
+  color: #C1F6ED !important;
+  border-color: #1E5565 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #1E5565 !important;
+}
+
+/* Permanent city label tooltips on maps */
+.leaflet-tooltip.map-city-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: rgba(193, 246, 237, 0.92);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.95), 0 0 8px rgba(0,0,0,0.7);
+  padding: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.leaflet-tooltip.map-city-label::before {
+  display: none;
+}
+
+/* Numbered plant marker icons */
+.plant-icon-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.plant-num-badge {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(193, 246, 237, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Interval slider on Price Region Map */
+input[type='range'].interval-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  display: block;
+  width: 100%;
+}
+input[type='range'].interval-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  border: 2px solid #1a2830;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+input[type='range'].interval-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  border: 2px solid #1a2830;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
