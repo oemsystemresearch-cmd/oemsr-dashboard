@@ -36,27 +36,33 @@ app.include_router(notices.router,   prefix="/api/notices",      tags=["Notices"
 @app.on_event("startup")
 def warm_caches():
     """Pre-warm the slow codes query so the first real request is instant."""
-    from routers.historical import get_codes
-    get_codes()
+    try:
+        from routers.historical import get_codes
+        get_codes()
+    except Exception:
+        pass  # DB not yet available (e.g. fresh Railway deploy before volume is populated)
 
 
 @app.get("/api/health", tags=["Meta"])
 def health():
     """Returns database row counts and the latest scraped date per key type."""
-    with get_db() as conn:
-        market_rows = conn.execute("SELECT COUNT(*) FROM market_data").fetchone()[0]
-        weather_rows = conn.execute("SELECT COUNT(*) FROM weather_data").fetchone()[0]
+    try:
+        with get_db() as conn:
+            market_rows = conn.execute("SELECT COUNT(*) FROM market_data").fetchone()[0]
+            weather_rows = conn.execute("SELECT COUNT(*) FROM weather_data").fetchone()[0]
 
-        latest = {}
-        for code in ["MSPEAMR_APP", "MSPEPCMR_APP", "EFP", "MSCC", "MSEAMR_MSCH"]:
-            row = conn.execute(
-                "SELECT MAX(DateFrom) FROM market_data WHERE DataTypeCode = ?", (code,)
-            ).fetchone()
-            latest[code] = row[0] if row else None
+            latest = {}
+            for code in ["MSPEAMR_APP", "MSPEPCMR_APP", "EFP", "MSCC", "MSEAMR_MSCH"]:
+                row = conn.execute(
+                    "SELECT MAX(DateFrom) FROM market_data WHERE DataTypeCode = ?", (code,)
+                ).fetchone()
+                latest[code] = row[0] if row else None
 
-        weather_latest = conn.execute(
-            "SELECT MAX(timestamp) FROM weather_data"
-        ).fetchone()[0]
+            weather_latest = conn.execute(
+                "SELECT MAX(timestamp) FROM weather_data"
+            ).fetchone()[0]
+    except Exception:
+        return {"status": "ok", "market_rows": 0, "weather_rows": 0, "latest_dates": {}, "weather_latest_timestamp": None}
 
     return {
         "status": "ok",
