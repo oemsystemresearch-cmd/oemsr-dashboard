@@ -85,8 +85,11 @@ def _backfill():
             conn.commit()
 
 
-_init_table()
-threading.Thread(target=_backfill, daemon=True).start()
+try:
+    _init_table()
+    threading.Thread(target=_backfill, daemon=True).start()
+except Exception:
+    pass  # DB not yet available on fresh deploy
 
 
 @router.get("/omr-usd")
