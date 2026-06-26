@@ -36,7 +36,7 @@ export default function About() {
             <img src={logo} alt="OEMSR logo" className="w-20 h-20 shrink-0" />
             <div>
               <span className="font-semibold text-2xl tracking-widest uppercase text-white">OEMSR</span>
-              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">Oman Electricity Market System Research</p>
+              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">{t('hero.headerSub')}</p>
             </div>
           </div>
           <button
@@ -68,38 +68,20 @@ export default function About() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-16">
 
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">About This Project</h1>
-          <p className="text-sm text-gray-500">
-            What OEMSR is, where the data comes from, and how to get in touch.
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">{t('about.pageTitle')}</h1>
+          <p className="text-sm text-gray-500">{t('about.pageSubtitle')}</p>
         </div>
 
         {/* ── About This Site ── */}
-        <Section title="About OEMSR">
+        <Section title={t('about.aboutSection')}>
           <div className="space-y-5 text-sm text-gray-600 leading-relaxed">
-            <p>
-              OEMSR is an independent research project built to improve public visibility into
-              Oman's electricity spot market. The market has been operational since 2022, but
-              historically published data has been spread across individual daily files with no
-              centralised interface for exploring trends, comparing periods, or downloading
-              structured datasets.
-            </p>
-            <p>
-              This site aggregates all publicly available OEMO market data into a searchable,
-              downloadable database and presents it through interactive charts and tables — free
-              to use, with no login required.
-            </p>
+            <p>{t('about.aboutP1')}</p>
+            <p>{t('about.aboutP2')}</p>
 
             <div className="bg-gray-50 border border-gray-200 rounded-lg px-5 py-4">
-              <p className="font-semibold text-gray-800 mb-1">Disclaimer</p>
+              <p className="font-semibold text-gray-800 mb-1">{t('about.disclaimerTitle')}</p>
               <p className="text-gray-600">
-                This site is an independent research initiative and is <strong>not affiliated
-                with, endorsed by, or connected to</strong> the Omani government, OEMO, OPWP,
-                OETC, APSR, Nama Group, or any Oman electricity market participant. All data is
-                sourced directly from OEMO's public market information portal. While every
-                effort is made to ensure accuracy, OEMSR makes no representations regarding
-                the completeness or timeliness of the data presented here. For official and
-                authoritative market information, refer directly to{' '}
+                {t('about.disclaimerText_before')}<strong>{t('about.disclaimerBold')}</strong>{t('about.disclaimerText_after')}{' '}
                 <a
                   href="https://www.oemo.om"
                   target="_blank"
@@ -114,43 +96,43 @@ export default function About() {
         </Section>
 
         {/* ── Data Sources ── */}
-        <Section title="Data Sources">
+        <Section title={t('about.dataSourcesSection')}>
           <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
-                  label: 'Market Prices & Schedules',
+                  labelKey: 'about.src_prices_label',
                   source: 'OEMO Market Information Portal',
-                  detail: 'Ex-Ante and Ex-Post pool prices, system marginal prices, scarcity factors, margins, market schedules — updated daily.',
+                  detailKey: 'about.src_prices_detail',
                   url: 'https://www.oemo.om/market-information/',
                 },
                 {
-                  label: 'Economic Fuel Price (EFP)',
+                  labelKey: 'about.src_efp_label',
                   source: 'OEMO Market Information Portal',
-                  detail: 'Gas and oil EFP values published daily, used as the fuel cost reference for price formation.',
+                  detailKey: 'about.src_efp_detail',
                   url: 'https://www.oemo.om/market-information/',
                 },
                 {
-                  label: 'Monthly Scarcity Credit Cap (MSCC)',
+                  labelKey: 'about.src_mscc_label',
                   source: 'OEMO Market Information Portal',
-                  detail: 'Published monthly. Caps the total scarcity payments a generator can receive in a given month.',
+                  detailKey: 'about.src_mscc_detail',
                   url: 'https://www.oemo.om/market-information/',
                 },
                 {
-                  label: 'Market Notices & Reports',
+                  labelKey: 'about.src_notices_label',
                   source: 'OEMO Market Notices',
-                  detail: 'Withdrawal, exclusion, rectification, suspension, and withdrawal-consent notices, plus market review and annual reports.',
+                  detailKey: 'about.src_notices_detail',
                   url: 'https://www.oemo.om/market-information/market-notices/',
                 },
                 {
-                  label: 'Temperature Data',
+                  labelKey: 'about.src_temp_label',
                   source: 'Open-Meteo',
-                  detail: 'Hourly temperature readings for 10 cities across Oman, used as a proxy for cooling load on the grid. Free and open API — no affiliation.',
+                  detailKey: 'about.src_temp_detail',
                   url: 'https://open-meteo.com',
                 },
               ].map(item => (
-                <div key={item.label} className="border border-gray-200 rounded-lg p-4">
-                  <p className="font-semibold text-gray-800 mb-0.5">{item.label}</p>
+                <div key={item.labelKey} className="border border-gray-200 rounded-lg p-4">
+                  <p className="font-semibold text-gray-800 mb-0.5">{t(item.labelKey)}</p>
                   <a
                     href={item.url}
                     target="_blank"
@@ -159,22 +141,17 @@ export default function About() {
                   >
                     {item.source} ↗
                   </a>
-                  <p className="text-xs text-gray-500">{item.detail}</p>
+                  <p className="text-xs text-gray-500">{t(item.detailKey)}</p>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-gray-400 mt-2">
-              Data is refreshed daily. The database covers January 2022 to present, though some
-              data types may be sparse for earlier dates depending on OEMO publication history.
-            </p>
+            <p className="text-xs text-gray-400 mt-2">{t('about.dataSourcesNote')}</p>
           </div>
         </Section>
 
         {/* ── Contact ── */}
-        <Section title="Contact">
-          <p className="text-sm text-gray-600 mb-3">
-            Questions, data corrections, or feedback are welcome.
-          </p>
+        <Section title={t('about.contactSection')}>
+          <p className="text-sm text-gray-600 mb-3">{t('about.contactText')}</p>
           <a
             href="mailto:OEMSystemResearch@gmail.com"
             className="inline-flex items-center gap-2 px-4 py-2 rounded border border-gray-300 text-sm font-medium text-gray-700 hover:border-[#01122b] hover:text-[#01122b] transition-colors"

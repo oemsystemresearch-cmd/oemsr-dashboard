@@ -124,7 +124,7 @@ export default function Home() {
             <img src={logo} alt="OEMSR logo" className="w-20 h-20 shrink-0" />
             <div>
               <span className="font-semibold text-2xl tracking-widest uppercase text-white">OEMSR</span>
-              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">Oman Electricity Market System Research</p>
+              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">{t('hero.headerSub')}</p>
             </div>
           </div>
 
@@ -192,10 +192,10 @@ export default function Home() {
         {/* ── Hero title — transparent, text only ── */}
         <div className="pt-2 pb-1">
           <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-            Oman Electricity Spot Market Research
+            {t('hero.heroTitle')}
           </h1>
           <p className="text-sm text-gray-600 mt-1.5 max-w-xl">
-            An independent transparency initiative providing open access to Oman's electricity market.
+            {t('hero.heroSubtitle')}
           </p>
         </div>
 

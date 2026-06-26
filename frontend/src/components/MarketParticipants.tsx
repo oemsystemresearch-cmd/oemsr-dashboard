@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 type UnitType = 'CCGT' | 'OCGT' | 'PV';
 interface PlantUnit { name: string; mw: number; type: UnitType; }
 
@@ -69,13 +71,14 @@ const PLANT_GROUPS: {
 const BADGE_BG = '#e2e8f0';
 
 export default function MarketParticipants() {
+  const { t } = useTranslation();
   return (
     <div className="card overflow-hidden">
       <div className="h-0.5 w-full bg-[#01122b]" />
       <div className="px-4 pt-4 pb-4">
       <p className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-3">
-        Market Participants
-        <span className="font-normal text-gray-600 ml-1">(latest contracted capacity)</span>
+        {t('participants.title')}
+        <span className="font-normal text-gray-600 ml-1">{t('participants.capacityNote')}</span>
       </p>
       <div className="grid grid-cols-2 gap-x-6 gap-y-2">
         {PLANT_GROUPS.map((pg, i) => (

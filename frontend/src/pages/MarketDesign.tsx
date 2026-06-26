@@ -53,6 +53,7 @@ function Explainer({ title, children }: { title: string; children: React.ReactNo
 // ── Info card components (HTML recreations of the original PNG diagrams) ──
 
 function Info1() {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
       <div className="border-2 border-amber-400 rounded-lg p-4 flex items-start gap-4">
@@ -62,8 +63,8 @@ function Info1() {
           </svg>
         </div>
         <div>
-          <p className="font-bold text-amber-500 mb-1">Price formation</p>
-          <p className="text-sm text-gray-700">Aggregate Pool Price =<br />System Marginal Price + Scarcity Price</p>
+          <p className="font-bold text-amber-500 mb-1">{t('design.info1.priceTitle')}</p>
+          <p className="text-sm text-gray-700" style={{ whiteSpace: 'pre-line' }}>{t('design.info1.priceText')}</p>
         </div>
       </div>
       <div className="border-2 border-blue-400 rounded-lg p-4 flex items-start gap-4">
@@ -74,8 +75,8 @@ function Info1() {
           </svg>
         </div>
         <div>
-          <p className="font-bold text-blue-600 mb-1">Contract interaction</p>
-          <p className="text-sm text-gray-700">Plants with existing P(W)PAs may still submit offers while continuing to settle under contract terms.</p>
+          <p className="font-bold text-blue-600 mb-1">{t('design.info1.contractTitle')}</p>
+          <p className="text-sm text-gray-700">{t('design.info1.contractText')}</p>
         </div>
       </div>
     </div>
@@ -97,7 +98,7 @@ export default function MarketDesign() {
             <img src={logo} alt="OEMSR logo" className="w-20 h-20 shrink-0" />
             <div>
               <span className="font-semibold text-2xl tracking-widest uppercase text-white">OEMSR</span>
-              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">Oman Electricity Market System Research</p>
+              <p className="font-bold italic text-white/60 text-xs leading-tight mt-0.5">{t('hero.headerSub')}</p>
             </div>
           </div>
           <button
@@ -129,67 +130,39 @@ export default function MarketDesign() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-16">
 
         <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">Market Design</h1>
-          <p className="text-sm text-gray-500">
-            How Oman's wholesale electricity spot market works — structure, pricing, and participants.
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">{t('design.pageTitle')}</h1>
+          <p className="text-sm text-gray-500">{t('design.pageSubtitle')}</p>
         </div>
 
         {/* ── Section 1: How the Market Works ── */}
-        <Section title="How the Market Works">
-          <Explainer title="What is OEMO?">
-            <p>
-              The Oman Electricity Market Operator (OEMO) is the body responsible for administering
-              Oman's wholesale electricity market under the Electricity Regulation Law. OEMO manages
-              the day-ahead scheduling and pricing of electricity across the Main Interconnected System
-              and publishes market data on its public information portal.
-            </p>
+        <Section title={t('design.section1')}>
+          <Explainer title={t('design.oemo.title')}>
+            <p>{t('design.oemo.p1')}</p>
           </Explainer>
 
-          <Explainer title="A GCC First">
-            <p>
-              Oman's electricity spot market is the first short-term energy procurement market in the
-              Gulf Cooperation Council (GCC) region. Its establishment represents a significant step
-              in the development of competitive electricity markets across the Gulf, shifting from
-              long-term bilateral contracts toward a transparent, price-discovery-based system.
-            </p>
+          <Explainer title={t('design.gcc.title')}>
+            <p>{t('design.gcc.p1')}</p>
           </Explainer>
 
-          <Explainer title="MIS and DTS — Two Grid Systems">
-            <p>
-              Oman's electricity network is divided into two separate systems:
-            </p>
+          <Explainer title={t('design.misDts.title')}>
+            <p>{t('design.misDts.intro')}</p>
             <ul className="list-disc list-inside space-y-1 mt-2 ml-2">
               <li>
-                <strong>MIS (Main Interconnected System)</strong> — covers most of the country
-                including Muscat, Al Batinah, Ad Dakhiliyah, and other central and northern
-                governorates. The spot market operates within the MIS.
+                <strong>MIS (Main Interconnected System)</strong>{t('design.misDts.mis')}
               </li>
               <li>
-                <strong>DTS (Dhofar Transmission System)</strong> — covers the Dhofar region in
-                southern Oman, including Salalah and surrounding areas.
+                <strong>DTS (Dhofar Transmission System)</strong>{t('design.misDts.dts')}
               </li>
             </ul>
-            <p>
-              The MIS and DTS were recently interconnected, linking Oman's two grids for the first
-              time. However, the electricity spot market currently operates only within the MIS.
-              The DTS remains outside the market's scope and continues to operate under a separate
-              regulatory arrangement — DTS generation and load are not subject to spot market
-              pricing or settlement.
-            </p>
+            <p>{t('design.misDts.interconnect')}</p>
           </Explainer>
 
-          <Explainer title="Day-Ahead (Ex-Ante) Pricing">
+          <Explainer title={t('design.dayAhead.title')}>
             <p>
-              Unlike many markets that clear prices in real time every few minutes, Oman's market
-              determines prices the day before delivery. "Ex-Ante" means <em>before the event</em> —
-              prices are set in advance for each 30-minute trading interval of the following day.
+              {t('design.dayAhead.p1_before')}<em>{t('design.dayAhead.p1_em')}</em>{t('design.dayAhead.p1_after')}
             </p>
             <p>
-              This means the <strong>Ex-Ante Aggregate Pool Price (MSPEAMR_APP)</strong> is the
-              primary market signal: it reflects what generators bid to supply electricity and what
-              the system needed. There are 48 trading periods per day (one every 30 minutes from
-              00:00 to 23:30).
+              {t('design.dayAhead.p2_before')}<strong>Ex-Ante Aggregate Pool Price (MSPEAMR_APP)</strong>{t('design.dayAhead.p2_after')}
             </p>
           </Explainer>
 
@@ -198,32 +171,20 @@ export default function MarketDesign() {
             <img src={info5} alt="Market process diagram" className="w-full rounded-lg border border-gray-200 shadow-sm" />
           </div>
 
-          <Explainer title="No Separate Real-Time Market">
-            <p>
-              Oman does not operate a separate real-time clearing market. The Ex-Ante price is the
-              definitive settlement price. Ex-Post Confirmed and Ex-Post Indicative prices are
-              published later and reflect operational adjustments, but the Ex-Ante price is the key
-              commercial number participants are exposed to.
-            </p>
+          <Explainer title={t('design.noRealTime.title')}>
+            <p>{t('design.noRealTime.p1')}</p>
           </Explainer>
 
           <div className="my-6">
             <img src={info3} alt="Central policy feature" className="w-full rounded-lg border border-gray-200 shadow-sm" />
           </div>
 
-          <Explainer title="How Pool Prices Are Set">
+          <Explainer title={t('design.howPrices.title')}>
             <p>
-              Each day, generation participants submit bids specifying how much electricity they can
-              supply and at what price for each 30-minute interval. OEMO runs an optimization to
-              schedule the lowest-cost combination of generation that meets forecast demand — this
-              produces the <strong>System Marginal Price (ZSMP)</strong>, which is the cost of the
-              last (most expensive) unit of generation dispatched.
+              {t('design.howPrices.p1_before')}<strong>System Marginal Price (ZSMP)</strong>{t('design.howPrices.p1_after')}
             </p>
             <p>
-              The <strong>Aggregate Pool Price</strong> adds a scarcity component on top of the
-              system marginal price, reflecting how close the system is to its capacity limits.
-              When the market is tight, scarcity prices increase significantly. When there is
-              surplus capacity, prices are lower and closer to the marginal cost of fuel.
+              {t('design.howPrices.p2_before')}<strong>Aggregate Pool Price</strong>{t('design.howPrices.p2_after')}
             </p>
           </Explainer>
 
@@ -234,11 +195,8 @@ export default function MarketDesign() {
         </Section>
 
         {/* ── Section 2: Market Participants ── */}
-        <Section title="Market Participants">
-          <p className="text-sm text-gray-600 mb-5">
-            The following generation companies are currently active participants in the Oman
-            electricity spot market as reflected in the published market schedule data.
-          </p>
+        <Section title={t('design.section2')}>
+          <p className="text-sm text-gray-600 mb-5">{t('design.participantsIntro')}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
             {PARTICIPANTS.map(p => (
               <div key={p.code} className="border border-gray-200 rounded-lg px-4 py-3 flex items-center gap-3">
@@ -251,12 +209,10 @@ export default function MarketDesign() {
             ))}
           </div>
           <p className="text-xs text-gray-400 bg-gray-50 border border-gray-200 rounded px-4 py-3">
-            Participant names are derived from published market schedule data and maintained
-            manually. This list may not reflect the most recent registrations or de-registrations.
-            For the official current participant list, contact OEMO directly at{' '}
+            {t('design.participantsFooter_before')}{' '}
             <a href="https://www.oemo.om" target="_blank" rel="noopener noreferrer" className="underline">
               oemo.om ↗
-            </a>.
+            </a>{t('design.participantsFooter_after')}
           </p>
         </Section>
 

@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
 import type { OemoArticle } from '../api/client';
 
 const OEMO_NEWS_URL = 'https://www.oemo.om/media-center/news-articles/';
 
 export default function FeaturedNews() {
+  const { t } = useTranslation();
   const [articles, setArticles] = useState<OemoArticle[]>([]);
   const [loading,  setLoading]  = useState(true);
   const [failed,   setFailed]   = useState(false);
@@ -24,8 +26,8 @@ export default function FeaturedNews() {
       {/* Header */}
       <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between shrink-0">
         <div>
-          <h2 className="text-base font-semibold text-gray-900">Featured News</h2>
-          <p className="text-xs text-gray-500 mt-0.5">From OEMO media centre</p>
+          <h2 className="text-base font-semibold text-gray-900">{t('news.title')}</h2>
+          <p className="text-xs text-gray-500 mt-0.5">{t('news.source')}</p>
         </div>
         <a
           href={OEMO_NEWS_URL}
@@ -33,7 +35,7 @@ export default function FeaturedNews() {
           rel="noopener noreferrer"
           className="text-xs text-accent hover:text-accent-light font-medium transition-colors whitespace-nowrap"
         >
-          View all →
+          {t('news.viewAll')}
         </a>
       </div>
 
@@ -50,7 +52,7 @@ export default function FeaturedNews() {
         ) : failed || articles.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-4 py-14 px-6 text-center">
             <p className="text-sm text-gray-500 leading-relaxed">
-              Live news feed unavailable.
+              {t('news.unavailable')}
             </p>
             <a
               href={OEMO_NEWS_URL}
@@ -58,7 +60,7 @@ export default function FeaturedNews() {
               rel="noopener noreferrer"
               className="btn-accent"
             >
-              Visit OEMO News ↗
+              {t('news.visitOemo')}
             </a>
           </div>
         ) : (
