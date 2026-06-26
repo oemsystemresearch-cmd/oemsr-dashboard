@@ -2,10 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { setLanguage } from '../i18n';
 import logo  from '../assets/logo.png';
-import info2 from '../assets/info_2.png';
-import info3 from '../assets/info_3.png';
-import info4 from '../assets/Info_4.png';
-import info5 from '../assets/info_5.png';
+import info2  from '../assets/info_2.png';
+import info3  from '../assets/info_3.png';
+import info4  from '../assets/Info_4.png';
+import info5  from '../assets/info_5.png';
+import misDts from '../assets/MISDTS.png';
 
 const NAV_LINKS = [
   { to: '/',               key: 'nav.home' },
@@ -155,6 +156,7 @@ export default function MarketDesign() {
               </li>
             </ul>
             <p>{t('design.misDts.interconnect')}</p>
+            <img src={misDts} alt="MIS and DTS grid areas map" className="w-full rounded-lg border border-gray-200 shadow-sm mt-4" />
           </Explainer>
 
           <Explainer title={t('design.dayAhead.title')}>
