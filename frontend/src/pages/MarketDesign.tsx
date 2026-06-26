@@ -139,6 +139,7 @@ export default function MarketDesign() {
         <Section title={t('design.section1')}>
           <Explainer title={t('design.oemo.title')}>
             <p>{t('design.oemo.p1')}</p>
+            <p>{t('design.oemo.p2')}</p>
           </Explainer>
 
           <Explainer title={t('design.gcc.title')}>

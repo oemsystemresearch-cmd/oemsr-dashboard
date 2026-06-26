@@ -124,8 +124,9 @@ export default {
     section1:    'How the Market Works',
     section2:    'Market Participants',
     oemo: {
-      title: 'What is OEMO?',
-      p1:    'The Oman Electricity Market Operator (OEMO) is the body responsible for administering Oman\'s wholesale electricity market under the Electricity Regulation Law. OEMO manages the day-ahead scheduling and pricing of electricity across the Main Interconnected System and publishes market data on its public information portal.',
+      title: 'Why was the Omani Spot Market Created?',
+      p1:    'The Oman Electricity Market was created to address a structural issue in Oman\'s power sector. For many years, generation was procured through long-term power and water purchase agreements. As earlier contracts approached expiry, Oman needed a framework for determining how those plants should continue to participate after their original contract terms ended.',
+      p2:    'The creation of a shorter-term spot market provides that framework. Expiring plants can submit daily cost-reflective offers and receive the System Marginal Price, while plants with existing P(W)PAs can still participate in market operations while continuing to settle under their contracts. This allows Oman to introduce price formation, dispatch transparency, and post-PPA asset participation without moving to full retail liberalization.',
     },
     gcc: {
       title: 'A GCC First',
