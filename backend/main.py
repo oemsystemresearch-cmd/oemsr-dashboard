@@ -94,6 +94,23 @@ def start_scheduler():
         logger.exception("Scheduler failed to start — scrapers will not run automatically")
 
 
+@app.post("/api/admin/scrape", tags=["Admin"])
+def trigger_scrape(key: str):
+    """Manually trigger both scrapers. Requires SCRAPER_KEY env var to match."""
+    secret = os.getenv("SCRAPER_KEY", "")
+    if not secret or key != secret:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=403, detail="Invalid key")
+
+    import threading
+    def run_both():
+        _run_scraper("oemo_scraper.py")
+        _run_scraper("weather_scraper.py")
+
+    threading.Thread(target=run_both, daemon=True).start()
+    return {"status": "started", "message": "Both scrapers are running in the background. Check Railway logs for progress."}
+
+
 @app.get("/api/health", tags=["Meta"])
 def health():
     """Returns database row counts and the latest scraped date per key type."""
