@@ -95,20 +95,28 @@ def start_scheduler():
 
 
 @app.post("/api/admin/scrape", tags=["Admin"])
-def trigger_scrape(key: str):
-    """Manually trigger both scrapers. Requires SCRAPER_KEY env var to match."""
+def trigger_scrape(key: str, target: str = "both"):
+    """Manually trigger scrapers. target = 'both' | 'oemo' | 'weather'"""
+    from fastapi import HTTPException
     secret = os.getenv("SCRAPER_KEY", "").strip()
     if not secret or key.strip() != secret:
-        from fastapi import HTTPException
         raise HTTPException(status_code=403, detail="Invalid key")
 
-    import threading
-    def run_both():
-        _run_scraper("oemo_scraper.py")
-        _run_scraper("weather_scraper.py")
+    scripts = {
+        "both":    ["oemo_scraper.py", "weather_scraper.py"],
+        "oemo":    ["oemo_scraper.py"],
+        "weather": ["weather_scraper.py"],
+    }
+    if target not in scripts:
+        raise HTTPException(status_code=400, detail="target must be 'both', 'oemo', or 'weather'")
 
-    threading.Thread(target=run_both, daemon=True).start()
-    return {"status": "started", "message": "Both scrapers are running in the background. Check Railway logs for progress."}
+    import threading
+    def run_all():
+        for s in scripts[target]:
+            _run_scraper(s)
+
+    threading.Thread(target=run_all, daemon=True).start()
+    return {"status": "started", "target": target, "message": f"Running {target} scraper(s) in background."}
 
 
 @app.get("/api/health", tags=["Meta"])
