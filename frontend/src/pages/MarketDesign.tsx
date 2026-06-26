@@ -32,11 +32,11 @@ const PARTICIPANTS = [
   { code: 'MP_AUG_PDO',  name: 'Petroleum Development Oman (PDO)' },
 ];
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
       <div className="h-0.5 w-full bg-[#01122b] mb-6" />
-      <h2 className="text-xl font-bold text-gray-900 mb-6">{title}</h2>
+      {title && <h2 className="text-xl font-bold text-gray-900 mb-6">{title}</h2>}
       {children}
     </section>
   );
@@ -136,7 +136,7 @@ export default function MarketDesign() {
         </div>
 
         {/* ── Section 1: How the Market Works ── */}
-        <Section title={t('design.section1')}>
+        <Section>
           <Explainer title={t('design.oemo.title')}>
             <p>{t('design.oemo.p1')}</p>
             <p>{t('design.oemo.p2')}</p>
