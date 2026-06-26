@@ -139,7 +139,7 @@ export default {
       interconnect: 'The MIS and DTS were recently interconnected, linking Oman\'s two grids for the first time. However, the electricity spot market currently operates only within the MIS. The DTS remains outside the market\'s scope and continues to operate under a separate regulatory arrangement — DTS generation and load are not subject to spot market pricing or settlement.',
     },
     dayAhead: {
-      title:      'Day-Ahead (Ex-Ante) Pricing',
+      title:      'How the Market Operates:',
       p1_before:  'Unlike many markets that clear prices in real time every few minutes, Oman\'s market determines prices the day before delivery. "Ex-Ante" means ',
       p1_em:      'before the event',
       p1_after:   ' — prices are set in advance for each 30-minute trading interval of the following day.',
