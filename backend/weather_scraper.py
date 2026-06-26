@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS weather_data (
 # ── Database ──────────────────────────────────────────────────────────────────
 
 def get_db() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=60)
     conn.execute(SCHEMA)
     conn.execute("CREATE INDEX IF NOT EXISTS idx_weather_city    ON weather_data(city)")
     conn.execute("CREATE INDEX IF NOT EXISTS idx_weather_ts      ON weather_data(timestamp)")

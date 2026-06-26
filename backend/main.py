@@ -18,6 +18,9 @@ logger = logging.getLogger(__name__)
 
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 
+import threading
+_scraper_lock = threading.Lock()
+
 
 def _run_scraper(script: str) -> None:
     """Run a scraper script in update mode, logging output and errors."""
@@ -110,10 +113,15 @@ def trigger_scrape(key: str, target: str = "both"):
     if target not in scripts:
         raise HTTPException(status_code=400, detail="target must be 'both', 'oemo', or 'weather'")
 
-    import threading
+    if not _scraper_lock.acquire(blocking=False):
+        return {"status": "busy", "message": "A scraper is already running. Try again shortly."}
+
     def run_all():
-        for s in scripts[target]:
-            _run_scraper(s)
+        try:
+            for s in scripts[target]:
+                _run_scraper(s)
+        finally:
+            _scraper_lock.release()
 
     threading.Thread(target=run_all, daemon=True).start()
     return {"status": "started", "target": target, "message": f"Running {target} scraper(s) in background."}
