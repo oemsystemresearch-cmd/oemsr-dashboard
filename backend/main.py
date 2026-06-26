@@ -97,8 +97,8 @@ def start_scheduler():
 @app.post("/api/admin/scrape", tags=["Admin"])
 def trigger_scrape(key: str):
     """Manually trigger both scrapers. Requires SCRAPER_KEY env var to match."""
-    secret = os.getenv("SCRAPER_KEY", "")
-    if not secret or key != secret:
+    secret = os.getenv("SCRAPER_KEY", "").strip()
+    if not secret or key.strip() != secret:
         from fastapi import HTTPException
         raise HTTPException(status_code=403, detail="Invalid key")
 
