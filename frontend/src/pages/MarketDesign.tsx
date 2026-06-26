@@ -156,7 +156,7 @@ export default function MarketDesign() {
               </li>
             </ul>
             <p>{t('design.misDts.interconnect')}</p>
-            <img src={misDts} alt="MIS and DTS grid areas map" className="w-auto max-h-96 rounded-lg border border-gray-200 shadow-sm mt-4 mx-auto block" />
+            <img src={misDts} alt="MIS and DTS grid areas map" className="w-auto max-h-[520px] rounded-lg border border-gray-200 shadow-sm mt-4 mx-auto block" />
           </Explainer>
 
           <Explainer title={t('design.dayAhead.title')}>
