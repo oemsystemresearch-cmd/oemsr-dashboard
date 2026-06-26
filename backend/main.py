@@ -1,13 +1,41 @@
 import os
+import sys
+import subprocess
+import logging
 from dotenv import load_dotenv
 
 load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
 
 from database import get_db
 from routers import market, weather, news, exchange, historical, notices
+
+logger = logging.getLogger(__name__)
+
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _run_scraper(script: str) -> None:
+    """Run a scraper script in update mode, logging output and errors."""
+    path = os.path.join(BACKEND_DIR, script)
+    logger.info("Scheduler: starting %s", script)
+    try:
+        result = subprocess.run(
+            [sys.executable, path, "--mode", "update"],
+            capture_output=True, text=True, timeout=1800,
+        )
+        if result.stdout:
+            logger.info("Scheduler [%s] stdout: %s", script, result.stdout[-2000:])
+        if result.returncode != 0:
+            logger.error("Scheduler [%s] failed (rc=%d): %s", script, result.returncode, result.stderr[-2000:])
+        else:
+            logger.info("Scheduler: %s completed successfully", script)
+    except Exception as exc:
+        logger.exception("Scheduler: unexpected error running %s: %s", script, exc)
 
 app = FastAPI(
     title="OEMS API",
@@ -41,6 +69,29 @@ def warm_caches():
         get_codes()
     except Exception:
         pass  # DB not yet available (e.g. fresh Railway deploy before volume is populated)
+
+
+@app.on_event("startup")
+def start_scheduler():
+    """Schedule both scrapers to run at 06:00 and 18:00 Oman time (UTC+4)."""
+    try:
+        scheduler = BackgroundScheduler(timezone="Asia/Muscat")
+
+        # OEMO market data scraper — 06:00 and 18:00 Oman time
+        scheduler.add_job(
+            _run_scraper, CronTrigger(hour="6,18", minute=0, timezone="Asia/Muscat"),
+            args=["oemo_scraper.py"], id="oemo_scraper", replace_existing=True,
+        )
+        # Weather data scraper — 06:15 and 18:15 Oman time (staggered to avoid overlap)
+        scheduler.add_job(
+            _run_scraper, CronTrigger(hour="6,18", minute=15, timezone="Asia/Muscat"),
+            args=["weather_scraper.py"], id="weather_scraper", replace_existing=True,
+        )
+
+        scheduler.start()
+        logger.info("Scheduler started — scrapers will run at 06:00/18:00 and 06:15/18:15 Oman time")
+    except Exception:
+        logger.exception("Scheduler failed to start — scrapers will not run automatically")
 
 
 @app.get("/api/health", tags=["Meta"])
