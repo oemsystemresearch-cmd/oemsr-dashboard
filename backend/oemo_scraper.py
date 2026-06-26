@@ -41,6 +41,10 @@ import httpx
 
 OUTPUT_DIR      = os.path.expanduser("~/Desktop/Oman_Project/oemo_data")
 DB_NAME         = "oemo_market.db"
+
+# On Railway, DB_PATH env var points to the persistent volume.
+# Locally it falls back to the OUTPUT_DIR/DB_NAME path above.
+_ENV_DB_PATH = os.getenv("DB_PATH")
 DELAY_SEC       = 1.0
 EMPTY_DELAY_SEC = 0.2
 
@@ -620,7 +624,7 @@ def main():
     args = parser.parse_args()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    db_path = os.path.join(OUTPUT_DIR, DB_NAME)
+    db_path = _ENV_DB_PATH or os.path.join(OUTPUT_DIR, DB_NAME)
 
     if args.migrate:
         migrate_db(db_path)

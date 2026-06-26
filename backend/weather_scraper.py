@@ -29,7 +29,10 @@ from datetime import date, timedelta
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
-DB_PATH = os.path.expanduser("~/Desktop/Oman_Project/oemo_data/oemo_market.db")
+DB_PATH = os.getenv(
+    "DB_PATH",
+    os.path.expanduser("~/Desktop/Oman_Project/oemo_data/oemo_market.db")
+)
 
 # Open-Meteo archive API covers data up to ~5 days ago (ERA5 reanalysis).
 # The forecast API fills in the recent gap using its past_days parameter.
