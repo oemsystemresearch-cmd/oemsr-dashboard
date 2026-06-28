@@ -127,15 +127,7 @@ export default function MarketScheduleChart({ latestMschDate }: Props) {
 
       {/* Lag notice */}
       <div className="mb-4 px-3 py-2.5 rounded bg-gray-50 border border-gray-200 text-xs text-gray-600">
-        {t('msch.disclaimer')}{' '}
-        <a
-          href="https://www.oemo.om/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#2EAF7D] underline underline-offset-2 hover:text-[#2EAF7D]-light transition-colors"
-        >
-          {t('msch.oemoSite')}
-        </a>.
+        {t('msch.disclaimer')}
       </div>
 
       {loading ? (
