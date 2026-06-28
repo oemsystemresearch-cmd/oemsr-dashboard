@@ -56,7 +56,7 @@ export default {
     subtitle:       'Scheduled generation by participant — Ex-Ante (MSEAMR)',
     settlementDate: 'Settlement date',
     avgTotal:       'Avg total',
-    disclaimer:     'Schedule data was last published for March 28, 2026 — the same date as the Iranian missile strikes on the EMAL aluminum smelter in the UAE, which may have prompted a temporary suspension of public market data publication.',
+    disclaimer:     'The schedule shown here comes from OEMO\'s Market Information Download and is published approximately 2–3 months after the settlement period. For the most up-to-date schedule, visit the',
     oemoSite:       'OEMO website',
   },
   table: {
